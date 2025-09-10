@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Curso Completo de Git e GitHub para Iniciantes</title>
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.6;
+      margin: 0;
+      padding: 20px;
+      background: #f4f4f9;
+      color: #333;
+    }
+    h1, h2, h3 {
+      color: #222;
+    }
+    h1 {
+      text-align: center;
+      background: #4cafef;
+      color: white;
+      padding: 15px;
+      border-radius: 8px;
+    }
+    h2 {
+      margin-top: 30px;
+      border-left: 6px solid #4cafef;
+      padding-left: 10px;
+    }
+    h3 {
+      margin-top: 20px;
+      color: #4cafef;
+    }
+    pre {
+      background: #272822;
+      color: #f8f8f2;
+      padding: 10px;
+      border-radius: 5px;
+      overflow-x: auto;
+    }
+    .enunciado {
+      font-weight: bold;
+      color: #444;
+      margin-top: 10px;
+    }
+    .explicacao {
+      background: #e8f5e9;
+      padding: 10px;
+      border-left: 5px solid #4caf50;
+      margin-bottom: 20px;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>📘 Curso Completo de Git e GitHub para Iniciantes</h1>
+  <h2>Exercícios de Fixação (com explicações)</h2>
+
+  <!-- ============================
+       AULA 1
+  ============================ -->
+  <h2>✅ Aula 1: Terminal, Git e Configuração</h2>
+
+  <h3>Exercício 1.1 — Criar uma pasta e entrar nela</h3>
+  <p class="enunciado">Enunciado:<br>Crie uma pasta chamada <code>projeto-exercicio</code> e entre nela pelo terminal.</p>
+  <pre><code>mkdir projeto-exercicio
+cd projeto-exercicio</code></pre>
+  <div class="explicacao">
+    <strong>Explicação:</strong><br>
+    - <code>mkdir</code> cria a pasta.<br>
+    - <code>cd</code> muda o diretório atual para dentro dessa pasta.
+  </div>
+
+  <h3>Exercício 1.2 — Criar arquivos pelo terminal</h3>
+  <p class="enunciado">Enunciado:<br>Dentro da pasta <code>projeto-exercicio</code>, crie um arquivo <code>index.html</code> com a frase “Olá Git”.</p>
+  <pre><code>echo "&lt;h1&gt;Olá Git&lt;/h1&gt;" > index.html</code></pre>
+  <div class="explicacao">
+    <strong>Explicação:</strong><br>
+    O operador <code>&gt;</code> redireciona o texto para dentro de um arquivo. Se o arquivo não existir, ele será criado.
+  </div>
+
+  <h3>Exercício 1.3 — Configurar o Git</h3>
+  <p class="enunciado">Enunciado:<br>Configure seu nome e email no Git e confira se deu certo.</p>
+  <pre><code>git config --global user.name "Seu Nome"
+git config --global user.email "seu@email.com"
+git config --list</code></pre>
+  <div class="explicacao">
+    <strong>Explicação:</strong><br>
+    Isso garante que cada commit ficará marcado como feito por você.
+  </div>
+
+  <!-- ============================
+       AULA 2
+  ============================ -->
+  <h2>✅ Aula 2: Salvando Versões e Viajando no Tempo</h2>
+
+  <h3>Exercício 2.1 — Iniciar o Git</h3>
+  <p class="enunciado">Enunciado:<br>Ative o Git na pasta do projeto.</p>
+  <pre><code>git init</code></pre>
+  <div class="explicacao">
+    <strong>Explicação:</strong><br>
+    Cria a pasta oculta <code>.git</code>, onde o histórico será armazenado.
+  </div>
+
+  <h3>Exercício 2.2 — Fazer seu primeiro commit</h3>
+  <p class="enunciado">Enunciado:<br>Adicione o arquivo <code>index.html</code> e salve um commit com a mensagem “primeiro commit”.</p>
+  <pre><code>git status
+git add index.html
+git commit -m "primeiro commit"</code></pre>
+  <div class="explicacao">
+    <strong>Explicação:</strong><br>
+    - <code>git status</code>: mostra que o arquivo está novo (untracked).<br>
+    - <code>git add</code>: prepara o arquivo para o próximo commit.<br>
+    - <code>git commit</code>: salva uma versão com mensagem descritiva.
+  </div>
+
+  <h3>Exercício 2.3 — Criar mais versões e visualizar histórico</h3>
+  <p class="enunciado">Enunciado:<br>Altere o <code>index.html</code>, adicionando um parágrafo <code>&lt;p&gt;Versão 2&lt;/p&gt;</code>. Depois, salve outro commit e veja o histórico.</p>
+  <pre><code>echo "&lt;p&gt;Versão 2&lt;/p&gt;" >> index.html
+git add index.html
+git commit -m "adicionado parágrafo versão 2"
+git log</code></pre>
+  <div class="explicacao">
+    <strong>Explicação:</strong><br>
+    - <code>&gt;&gt;</code> adiciona conteúdo no final do arquivo.<br>
+    - <code>git log</code> mostra todos os commits, cada um com seu hash único.
+  </div>
+
+  <h3>Exercício 2.4 — Voltar a uma versão antiga</h3>
+  <p class="enunciado">Enunciado:<br>Volte o arquivo <code>index.html</code> para a versão do primeiro commit.</p>
+  <pre><code>git log   # copie o hash do primeiro commit
+git checkout &lt;hash&gt; index.html</code></pre>
+  <div class="explicacao">
+    <strong>Explicação:</strong><br>
+    O <code>checkout &lt;hash&gt; arquivo</code> pega a versão daquele arquivo em um commit específico.<br>
+    Importante: você não perde nada, só substitui o arquivo pela versão antiga.
+  </div>
+
+  <!-- ============================
+       AULA 3
+  ============================ -->
+  <h2>✅ Aula 3: Conectando com o GitHub e Branches na Prática</h2>
+
+  <h3>Exercício 3.1 — Conectar com GitHub</h3>
+  <p class="enunciado">Enunciado:<br>Crie um repositório no GitHub chamado <code>projeto-exercicio</code> e envie seu projeto para lá.</p>
+  <pre><code>git remote add origin https://github.com/seuusuario/projeto-exercicio.git
+git branch -M main
+git push -u origin main</code></pre>
+  <div class="explicacao">
+    <strong>Explicação:</strong><br>
+    - <code>remote add origin</code>: conecta seu repositório local ao remoto.<br>
+    - <code>push</code>: envia as alterações para o GitHub.<br>
+    - <code>pull</code> seria o oposto: baixar mudanças do remoto para o local.
+  </div>
+
+  <h3>Exercício 3.2 — Criar e usar uma branch</h3>
+  <p class="enunciado">Enunciado:<br>Crie uma branch chamada <code>contato</code>, adicione um arquivo <code>contato.html</code>, faça commit e depois volte para a main.</p>
+  <pre><code>git checkout -b contato
+echo "&lt;h1&gt;Página de Contato&lt;/h1&gt;" > contato.html
+git add contato.html
+git commit -m "criado contato.html"
+git checkout main</code></pre>
+  <div class="explicacao">
+    <strong>Explicação:</strong><br>
+    - <code>checkout -b</code>: cria e já muda para a branch nova.<br>
+    - Você trabalha nessa branch sem alterar a main.
+  </div>
+
+  <h3>Exercício 3.3 — Fazer merge</h3>
+  <p class="enunciado">Enunciado:<br>Una a branch <code>contato</code> na branch principal.</p>
+  <pre><code>git checkout main
+git merge contato</code></pre>
+  <div class="explicacao">
+    <strong>Explicação:</strong><br>
+    Agora a branch main incorpora as alterações feitas na branch contato.
+  </div>
+
+  <!-- ============================
+       AULA 4
+  ============================ -->
+  <h2>✅ Aula 4: Colaboração e Publicação</h2>
+
+  <h3>Exercício 4.1 — Criar uma issue</h3>
+  <p class="enunciado">Enunciado:<br>No repositório do GitHub, crie uma Issue chamada “Adicionar rodapé no site”.</p>
+  <div class="explicacao">
+    <strong>Explicação:</strong><br>
+    Isso simula como equipes organizam tarefas e bugs dentro do GitHub.
+  </div>
+
+  <h3>Exercício 4.2 — Fazer um fork e pull request</h3>
+  <p class="enunciado">Enunciado:<br>Faça fork de um projeto qualquer no GitHub, altere algo simples (ex: README) e envie um Pull Request.</p>
+  <div class="explicacao">
+    <strong>Passos:</strong><br>
+    1. Clique em <strong>Fork</strong> no projeto.<br>
+    2. Clone seu fork para o computador.<br>
+    3. Crie uma branch, altere, commit, push.<br>
+    4. No GitHub, clique em <strong>Compare & pull request</strong>.<br>
+    5. Escreva uma boa mensagem explicando o que mudou.<br>
+  </div>
+
+  <h3>Exercício 4.3 — Publicar no GitHub Pages</h3>
+  <p class="enunciado">Enunciado:<br>Publique seu projeto e gere o link do site.</p>
+  <div class="explicacao">
+    <strong>Resolução:</strong><br>
+    1. Vá em <strong>Settings &gt; Pages</strong> no GitHub.<br>
+    2. Em <em>Source</em>, escolha a branch <code>main</code>.<br>
+    3. Clique em <strong>Save</strong>.<br>
+    4. Aguarde alguns instantes para o link aparecer.<br>
+    Pronto! Seu site está publicado para o mundo.
+  </div>
+
+</body>
+</html>
