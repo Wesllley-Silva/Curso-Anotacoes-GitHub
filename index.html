@@ -1,1 +1,379 @@
-ECHO est� ativado.
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Curso Completo de Git e GitHub - Aula Completa e Detalhada</title>
+  <style>
+    body { font-family: Arial, Helvetica, sans-serif; line-height: 1.65; margin: 20px; background: #f6f8fb; color: #222; }
+    .container{max-width:1100px;margin:0 auto}
+    header{background:#1565c0;padding:18px;border-radius:8px;color:white;margin-bottom:20px}
+    h1{margin:0;font-size:22px}
+    h2{color:#0b3a66;border-left:6px solid #4cafef;padding-left:10px;padding-top:8px}
+    h3{color:#1565c0}
+    pre{background:#0b1220;color:#d6f8ff;padding:12px;border-radius:8px;overflow:auto}
+    code{background:#d43c3c;padding:2px 6px;border-radius:4px}
+    .note{background:#fff4d6;padding:10px;border-left:4px solid #f3c042;border-radius:6px}
+    .example{background:#f3f8ff;padding:12px;border-left:4px solid #2b8cff;border-radius:6px}
+    .exercise{background:#e9fbe9;padding:12px;border-left:4px solid #42a853;border-radius:6px}
+    ul{margin-left:18px}
+    nav{margin-bottom:14px}
+    a.anchor{color:#0b3a66}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>📘 Curso Completo de Git e GitHub — Do Básico ao Avançado (Versão Detalhada)</h1>
+      <p style="margin:6px 0 0 0">Professor (40 anos): guia passo a passo para quem <strong>nunca</strong> usou Git/GitHub — agora com explicações detalhadas sobre hashes, branches, conflitos, push/pull, issues, fork/PR e GitHub Pages.</p>
+    </header>
+
+    <nav>
+      <strong>Índice:</strong>
+      <ul>
+        <li><a class="anchor" href="#aula1">Aula 1 — Teoria e Setup</a></li>
+        <li><a class="anchor" href="#aula2">Aula 2 — Salvando versões e Histórico</a></li>
+        <li><a class="anchor" href="#aula3">Aula 3 — GitHub, Branches e Push/Pull</a></li>
+        <li><a class="anchor" href="#aula4">Aula 4 — Colaboração: Issues, Fork & Pull Request</a></li>
+        <li><a class="anchor" href="#aula5">Aula 5 — GitHub Pages (Publicação)</a></li>
+        <li><a class="anchor" href="#exercicios">Exercícios</a></li>
+      </ul>
+    </nav>
+
+    <hr />
+
+    <h2 id="aula1">Aula 1: A Teoria e o Setup (Instalação e Configuração)</h2>
+
+    <h3>1.1 — O que é o Git?</h3>
+    <p>Pense no Git como a <strong>máquina do tempo</strong> do seu projeto. Cada vez que você salva uma versão importante (um <em>commit</em>), o Git registra quem fez a mudança, quando, e exatamente o que mudou. Isso permite voltar no tempo, comparar versões e trabalhar de forma segura.</p>
+    <div class="example">
+      <strong>Importante:</strong> O Git funciona <strong>localmente</strong> no seu computador — não precisa de internet para criar commits, ver histórico ou trocar branches. O GitHub (ou outro serviço remoto) é apenas para <em>compartilhar</em> esses commits na nuvem.
+    </div>
+
+    <h3>1.2 — O que é o GitHub?</h3>
+    <p>GitHub é um serviço online que armazena repositórios Git. Pense nele como um <strong>álbum online</strong> das suas fotos (commits) — e com ferramentas para colaboração: Issues, Pull Requests, Actions, Pages etc.</p>
+
+    <h3>1.3 — Preparando o terreno: o Terminal</h3>
+    <p>Antes de tudo, aprenda estes comandos básicos do terminal (funcionam em Windows/PowerShell, macOS e Linux, com pequenas diferenças):</p>
+    <pre><code>cd pasta            # entra em uma pasta
+cd ..               # volta uma pasta
+pwd                 # mostra caminho atual (Linux/Mac)
+mkdir nome-da-pasta # cria pasta
+ls                  # lista arquivos (Linux/Mac)
+dir                 # lista arquivos (Windows)
+echo "texto" &gt; arquivo.txt  # cria/reescreve arquivo
+echo "linha" &gt;&gt; arquivo.txt # adiciona no final
+clear / cls          # limpa a tela</code></pre>
+
+    <h3>1.4 — Instalar e configurar o Git</h3>
+    <pre><code># Baixe: https://git-scm.com
+# Configuração inicial
+git config --global user.name "Seu Nome"
+git config --global user.email "seu@email.com"
+
+# Verificar configurações
+git config --list</code></pre>
+    <p class="note">🔹 <strong>--global</strong> aplica para todo o usuário. Se quiser configurar apenas para um repositório, rode sem <code>--global</code> dentro da pasta do projeto.</p>
+
+    <hr />
+
+    <h2 id="aula2">Aula 2: Salvando Versões e Viajando no Tempo</h2>
+
+    <h3>2.1 — Criar o projeto e iniciar o Git</h3>
+    <pre><code>mkdir meu-site
+cd meu-site
+# crie 3 arquivos básicos
+# no Linux/Mac: touch index.html style.css script.js
+# no Windows (PowerShell): New-Item index.html, New-Item style.css, etc.
+
+git init</code></pre>
+    <p>O comando <code>git init</code> cria a pasta oculta <code>.git</code> com todo o mecanismo do controle de versão — não mexa nela manualmente.</p>
+
+    <h3>2.2 — Ciclo essencial: status → add → commit</h3>
+    <pre><code>git status          # ver o que mudou
+git diff            # ver as diferenças entre o trabalho e o último commit
+
+git add arquivo.txt  # preparar um arquivo específico
+git add .            # preparar tudo para o commit
+
+git commit -m "mensagem clara e curta"</code></pre>
+    <p class="note">✅ Boas práticas de commit: use verbo no imperativo, por exemplo: <em>Adiciona página de contato</em>, <em>Corrige bug no formulário</em>.</p>
+
+    <h3>2.3 — Histórico e hashes (IDs) — Como pegar e usar</h3>
+    <p>Cada commit recebe um identificador único chamado <strong>hash</strong> (SHA-1). Você pode ver os commits e seus hashes com:</p>
+    <pre><code>git log                # mostra commits com detalhes
+# versão mais compacta
+
+git log --oneline       # mostra cada commit numa linha (hash curto + mensagem)
+
+# obter o hash do último commit (completo e curto)
+git rev-parse HEAD
+
+git rev-parse --short HEAD  # hash abreviado</code></pre>
+
+    <p>Exemplos de uso do hash (substitua <code>&lt;hash&gt;</code> pelo valor real):</p>
+    <pre><code>git show &lt;hash&gt;                # mostra o que foi alterado naquele commit
+
+git checkout &lt;hash&gt;            # visita o repositório naquele commit (detached HEAD)
+
+git checkout -b nova-branch &lt;hash&gt;  # criar uma branch partindo daquele commit
+
+# restaurar um arquivo a partir de um commit
+git checkout &lt;hash&gt; -- arquivo.txt
+# (ou modo moderno)
+git restore --source=&lt;hash&gt; arquivo.txt
+
+# desfazer o repositório para um commit (destrutivo)
+git reset --hard &lt;hash&gt;
+
+# desfazer um commit criando um novo commit (seguro)
+git revert &lt;hash&gt;</code></pre>
+
+    <div class="note"><strong>Atenção — detached HEAD:</strong> ao usar <code>git checkout &lt;hash&gt;</code> você está apenas <em>visitando</em> esse ponto no histórico; o HEAD não aponta para uma branch. Se quiser preservar alterações feitas nesse estado, crie uma branch a partir dele: <code>git checkout -b minha-ideia</code>.</div>
+
+    <h3>2.4 — Recuperar sem estragar: reset vs revert</h3>
+    <p><strong>git reset --hard &lt;hash&gt;</strong>: move a branch atual para esse commit e apaga mudanças locais — é destrutivo.</p>
+    <p><strong>git revert &lt;hash&gt;</strong>: cria um novo commit que desfaz as mudanças do commit indicado — é seguro para repositórios compartilhados.</p>
+
+    <hr />
+
+    <h2 id="aula3">Aula 3: Conectando com GitHub, Branches e Push/Pull (Detalhado)</h2>
+
+    <h3>3.1 — Criar repositório no GitHub e enviar seu código</h3>
+    <ol>
+      <li>Crie uma conta em <a href="https://github.com" target="_blank">github.com</a>.</li>
+      <li>Clique em <strong>New repository</strong>. Sugestão: não marque o README/.gitignore para iniciantes (evita conflito inicial).</li>
+      <li>No seu terminal, adicione o remoto e envie:</li>
+    </ol>
+    <pre><code>git remote add origin https://github.com/seuusuario/seurepo.git
+# opcional: remover e re-adicionar se já existir
+# git remote remove origin
+
+git branch -M main
+git push -u origin main  # -u cria o tracking entre local e remoto</code></pre>
+
+    <h3>3.2 — git fetch, git pull, git push: entenda a diferença</h3>
+    <p><strong>git fetch</strong>: baixa os dados do remoto (branches e commits) para o seu repositório local, mas <em>não</em> altera sua cópia de trabalho. É seguro — você só atualiza referências.</p>
+    <p><strong>git pull</strong>: por padrão faz <code>git fetch</code> + <code>git merge</code>. Ou seja, baixa e mescla automaticamente com sua branch atual. Você também pode usar <code>git pull --rebase</code> para aplicar suas mudanças em cima das novas (histórico linear).</p>
+    <p><strong>git push</strong>: envia seus commits locais para o repositório remoto. Se outra pessoa já fez mudanças no remoto, seu <code>git push</code> pode falhar com um erro de "non-fast-forward" — nesse caso faça um <code>git pull</code> primeiro.</p>
+
+    <pre><code># trazer atualizações do remoto sem mesclar
+git fetch origin
+
+# ver o que mudou
+git log HEAD..origin/main --oneline
+
+# trazer e mesclar (padrão)
+git pull
+
+# trazer e aplicar suas mudanças por cima (rebase)
+git pull --rebase
+
+# enviar suas mudanças
+git push
+
+# definir upstream se ainda não tiver
+git push --set-upstream origin minha-branch</code></pre>
+
+    <p class="note">⚠️ <strong>git push --force</strong> pode sobrescrever o histórico remoto — use com extremamente cautela. Prefira <code>git push --force-with-lease</code>, que falhará se houver commits remotos que você não tem.</p>
+
+    <h3>3.3 — Branches (muito mais detalhes)</h3>
+    <p>Branches são linhas paralelas de desenvolvimento. Algumas regras e convenções:</p>
+    <ul>
+      <li>Use nomes claros: <code>feature/login</code>, <code>bugfix/ajusta-footer</code>, <code>hotfix/critical-fix</code>.</li>
+      <li>Mantenha a branch <code>main</code> estável — só aceite código revisado nela.</li>
+      <li>Fluxo simples (Recomendado para iniciantes): crie uma branch por funcionalidade, trabalhe, abra PR, revise e merge.</li>
+    </ul>
+    <pre><code># criar uma branch
+git branch feature/nova-pagina
+
+# criar e entrar ao mesmo tempo
+git checkout -b feature/nova-pagina
+# (ou) usar os comandos modernos
+git switch -c feature/nova-pagina
+
+# trabalhar, commitar, depois voltar para main
+git switch main
+
+# mesclar
+git merge feature/nova-pagina
+
+# deletar branch após merge
+git branch -d feature/nova-pagina
+
+# enviar branch ao remoto
+git push origin feature/nova-pagina
+
+# deletar branch remota
+git push origin --delete feature/nova-pagina</code></pre>
+
+    <h3>3.4 — Estratégias de branching (resumo)</h3>
+    <ul>
+      <li><strong>Feature-branch:</strong> cada feature em sua branch, então PR para a main.</li>
+      <li><strong>GitFlow:</strong> mais complexo — com branches <code>develop</code>, <code>release</code>, <code>hotfix</code>. Bom para times grandes.</li>
+      <li><strong>Trunk-based:</strong> manter tudo se integrando ao trunk/main frequentemente; ideal para CI/CD.</li>
+    </ul>
+
+    <h3>3.5 — Conflitos de merge (explicação profunda)</h3>
+    <p>Conflitos acontecem quando duas alterações tocam as mesmas linhas de um mesmo arquivo. O Git não sabe qual manter e marca o arquivo. Exemplo:</p>
+    <pre><code># conteúdo em main (antes)
+Olá, mundo!
+Bem-vindo ao site.
+
+# você altera localmente:
+Olá, mundo!
+Bem-vindo ao site. Texto alterado por você.
+
+# outra pessoa altera no remoto:
+Olá, mundo!
+Bem-vindo ao site. Texto alterado por outra pessoa.</code></pre>
+
+    <p>Ao tentar mesclar, o arquivo ficará assim:</p>
+    <pre><code>&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+Olá, mundo!
+Bem-vindo ao site. Texto alterado por você.
+=======
+Olá, mundo!
+Bem-vindo ao site. Texto alterado por outra pessoa.
+&gt;&gt;&gt;&gt;&gt;&gt; branch-remota</code></pre>
+
+    <p>Passos para resolver:</p>
+    <ol>
+      <li>Abra o arquivo e escolha a versão correta (ou combine as duas).</li>
+      <li>Remova as linhas <code>&lt;&lt;&lt;&lt;&lt;&lt;</code>, <code>=======</code>, <code>&gt;&gt;&gt;&gt;&gt;&gt;</code>.</li>
+      <li>Salve o arquivo.</li>
+      <li>Marque como resolvido: <code>git add arquivo.txt</code>.</li>
+      <li>Finalize o merge: <code>git commit -m "Resolve conflito em arquivo.txt"</code>. (Se o merge já abriu o editor, apenas salve o commit.)</li>
+    </ol>
+    <p>Se quiser abortar o merge em andamento: <code>git merge --abort</code>.</p>
+    <p>Se o conflito aconteceu durante um <code>rebase</code>, após resolver faça <code>git rebase --continue</code> ou <code>git rebase --abort</code> para desistir.</p>
+
+    <hr />
+
+    <h2 id="aula4">Aula 4: Colaboração — Issues, Fork &amp; Pull Request</h2>
+
+    <h3>4.1 — Issues (exemplos e como usar)</h3>
+    <p>Issues são usadas para rastrear bugs, melhorias e tarefas. Exemplo de templates simples:</p>
+    <pre><code># BUG
+Título: Bug: botão não funciona
+Descrição:
+- Passos para reproduzir:
+  1. Acessar /
+  2. Clicar em Enviar
+- Resultado esperado: formulário enviado
+- Resultado atual: nada acontece
+- Logs/prints (se houver)
+
+# FEATURE
+Título: Adicionar página Sobre
+Descrição:
+- Motivo: apresentar a equipe
+- Requisitos: texto, foto, link de contato
+</code></pre>
+    <p>Boas práticas: coloque labels (<code>bug</code>, <code>enhancement</code>, <code>documentation</code>), atribua alguém (<em>assignee</em>) e, se necessário, vincule a milestone.</p>
+
+    <h3>4.2 — Fork e Pull Request (prática completa)</h3>
+    <p>Fluxo para contribuir num projeto de terceiros:</p>
+    <ol>
+      <li>No GitHub, clique em <strong>Fork</strong>. Isso cria uma cópia do repositório no seu perfil.</li>
+      <li>Clone seu fork localmente:
+        <pre><code>git clone https://github.com/seuusuario/repositorio-fork.git
+cd repositorio-fork</code></pre>
+      </li>
+      <li>Adicione o remoto do repositório original (upstream) para poder sincronizar mudanças futuras:
+        <pre><code>git remote add upstream https://github.com/autor-original/repositorio.git
+
+# verificar remotos
+git remote -v</code></pre>
+      </li>
+      <li>Crie uma branch limpa para sua mudança:
+        <pre><code>git checkout -b feature/minha-melhoria</code></pre>
+      </li>
+      <li>Faça as alterações, commit e envie para seu fork:
+        <pre><code>git add .
+git commit -m "Adiciona instruções de instalação"
+git push origin feature/minha-melhoria</code></pre>
+      </li>
+      <li>No GitHub, abra um Pull Request do seu fork para o repositório original. Escolha o branch de origem (seu fork) e o branch alvo (geralmente <code>main</code> do repositório original).</li>
+      <li>Escreva uma descrição clara no PR: qual problema resolve, como testar e se há impactos.</li>
+    </ol>
+
+    <h4>Como manter seu fork atualizado (importante)</h4>
+    <pre><code># na pasta do seu fork
+git fetch upstream
+git checkout main
+git merge upstream/main
+# ou, preferencialmente usar rebase para um histórico linear
+# git rebase upstream/main
+
+git push origin main</code></pre>
+
+    <p class="note">Quando houver comentários no PR, corrija na mesma branch, faça novos commits e dê <code>git push</code> — o PR é atualizado automaticamente.</p>
+
+    <h3>4.3 — Boas práticas para Pull Requests</h3>
+    <ul>
+      <li>Divida mudanças grandes em PRs menores.</li>
+      <li>Descreva o problema e a solução no corpo do PR.</li>
+      <li>Inclua instruções de teste (como validar localmente).</li>
+      <li>Use referências como <code>Fixes #12</code> para fechar issues automaticamente.</li>
+    </ul>
+
+    <hr />
+
+    <h2 id="aula5">Aula 5: GitHub Pages — Publicando seu Site</h2>
+
+    <h3>Opções de publicação</h3>
+    <ul>
+      <li><strong>Repositório do usuário/organização</strong>: nomeie o repositório como <code>seuusuario.github.io</code> e publique a partir da branch <code>main</code>.</li>
+      <li><strong>Repositório de projeto</strong>: use <code>main</code> root ou a pasta <code>/docs</code>, ou uma branch <code>gh-pages</code>.</li>
+    </ul>
+
+    <h3>Passo a passo básico</h3>
+    <pre><code>1) Suba seus arquivos (HTML/CSS/JS) para o repositório
+2) No GitHub: Settings &gt; Pages
+3) Em Source selecione 'main' e a pasta '/' (ou '/docs')
+4) Salve. Aguarde alguns minutos e o link aparecerá.</code></pre>
+
+    <h3>Custom domain (domínio personalizado)</h3>
+    <p>Crie um arquivo <code>CNAME</code> com seu domínio no repositório ou configure nas Settings &gt; Pages. No provedor de DNS, aponte para os registros indicados pelo GitHub (A records e/ou CNAME). Pode demorar algumas horas para propagar.</p>
+
+    <h3>Limitações e alternativas</h3>
+    <ul>
+      <li>GitHub Pages é ideal para sites estáticos simples (HTML, CSS, JS).</li>
+      <li>Para sites que precisam de backend, use serviços como Netlify, Vercel ou hospedagem própria.</li>
+      <li>Para frameworks que precisam de build (React, Vue, Hugo), você pode usar GitHub Actions para compilar e publicar na branch <code>gh-pages</code>.</li>
+    </ul>
+
+    <hr />
+
+    <h2 id="exercicios">Exercícios (fixação)</h2>
+
+    <div class="exercise">
+      <h3>Exercício: Hashes e voltar no tempo</h3>
+      <p>1) Faça 3 commits no seu projeto. 2) Rode <code>git log --oneline</code> e copie o hash do commit do meio. 3) Use <code>git show &lt;hash&gt;</code> para ver as alterações. 4) Use <code>git checkout -b ramo-de-teste &lt;hash&gt;</code> para criar uma branch naquele ponto.</p>
+    </div>
+
+    <div class="exercise">
+      <h3>Exercício: Branch e merge com conflito (simulado)</h3>
+      <p>1) Crie uma branch <code>feature/x</code> e edite o arquivo <code>README.md</code> em uma linha. 2) Volte para <code>main</code>, edite a mesma linha de forma diferente e comite. 3) Tente mesclar <code>feature/x</code> em <code>main</code>. Resolva o conflito usando as instruções.</p>
+    </div>
+
+    <div class="exercise">
+      <h3>Exercício: Fork & PR</h3>
+      <p>1) Faça fork de um repositório público. 2) Clone seu fork. 3) Crie uma branch, faça uma mudança no README e dê push. 4) Abra um PR para o repositório original e escreva uma boa descrição.</p>
+    </div>
+
+    <div class="exercise">
+      <h3>Exercício: Publicar com GitHub Pages</h3>
+      <p>1) Em um repositório público, coloque um <code>index.html</code> simples e faça push. 2) Vá em Settings &gt; Pages e publique a partir da branch main. 3) Acesse o link gerado.</p>
+    </div>
+
+    <hr />
+
+    <footer style="margin-top:18px;font-size:13px;color:#555">
+      <p>Se quiser, posso: <strong>1)</strong> gerar um arquivo HTML pronto para download; <strong>2)</strong> converter em PDF; <strong>3)</strong> criar o repositório no GitHub com Pages já ativado. Diga qual opção prefere.</p>
+    </footer>
+
+  </div>
+</body>
+</html>
